@@ -21,7 +21,7 @@ namespace ConsoleApp6
               {"ulong" , typeof(ulong)},
               {"decimal" , typeof(decimal)},
               {"float" , typeof(float)},
-              {"double" , typeof(double)}, 
+              {"double" , typeof(double)},
               {"Decimal" , typeof(System.Decimal)},
               {"Single" , typeof(System.Single)},
               {"Double" , typeof(System.Double)},
@@ -35,7 +35,7 @@ namespace ConsoleApp6
             };
 
             // Print out header
-            Console.WriteLine($"Name,Type,Is derived,Bit size,Max precision,Max values string length,Min value,Max value");
+            Console.WriteLine($"Name,Type,Is derived,Bit size,Max precision,Max string length,Has negative,Max value,Min value");
 
             // Iterate through the types
             for (var n = 0; n < numericTypes.Length / 2; n += 1)
@@ -67,7 +67,7 @@ namespace ConsoleApp6
                 {
                     // Casting object
                     object i = null;
-                    
+
                     // Get the min max values
                     minValue = t.InvokeMember("MinValue", BindingFlags.GetField, null, i, null);
                     maxValue = t.InvokeMember("MaxValue", BindingFlags.GetField, null, i, null);
@@ -88,13 +88,16 @@ namespace ConsoleApp6
                 // Get the object size in bytes and convert to bit
                 var bitSize = System.Runtime.InteropServices.Marshal.SizeOf(obj) * 8;
 
+                // Can this be negative
+                var hasNegative = minValue.ToString().Contains('-') ? "*" : "";
+
                 // Find smallest number
                 // Make it 1 by incrementing it. If we set it to 1 then the object type changes
                 obj++;
 
                 dynamic s1 = obj;
                 dynamic s2 = "";
-                int p=-2;
+                int p = -2;
                 // Find how many decimals we can hold in this object type
                 while (s1.ToString() != s2.ToString())
                 {
@@ -102,10 +105,10 @@ namespace ConsoleApp6
                     // Divide it by 10
                     s1 = s1 / 10;
                     p++;
-                } ;
+                };
 
                 // Print out the results
-                Console.WriteLine($"{name},{t.Name},{isDerived},{bitSize},{p},{maxStringLength},{minValue.ToString()},{maxValue}");
+                Console.WriteLine($"{name},{t.Name},{isDerived},{bitSize},{p},{maxStringLength},{hasNegative},{maxValue},{minValue.ToString()}");
 
             }
         }
