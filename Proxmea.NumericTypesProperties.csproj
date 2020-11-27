@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>1.0.0.0</Version>
+    <Authors>Christoffer Järnåker</Authors>
+    <Company>Proxmea AB</Company>
+    <Copyright>Proxmea AB 2020</Copyright>
+  </PropertyGroup>
+
+</Project>
